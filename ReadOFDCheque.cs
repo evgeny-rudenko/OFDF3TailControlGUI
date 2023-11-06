@@ -28,6 +28,15 @@ namespace OFDF3TailControlGUI
         /// <param name="filename"></param>
         public ReadOFDCheque (string filename="ofd_test.xlsx")
         {
+
+            
+            
+            int cheque_date = Properties.Settings.Default.cheque_date;
+            int cheque_number = Properties.Settings.Default.cheque_number;
+            int sum_cheque = Properties.Settings.Default.sum_cheque;
+            int fp = Properties.Settings.Default.fp;
+            int kassa = Properties.Settings.Default.kassa;
+
             DTMAXMIN vtime = new DTMAXMIN();
             fname = filename;
             CL = new List<Cheque>();
@@ -41,14 +50,21 @@ namespace OFDF3TailControlGUI
                     if (dataRow.RowNumber() >= 2)
 
                     {
-                            c.cheque_date = DateTime.Parse(dataRow.Cell(1).Value.ToString());
-                            c.cheque_number = int.Parse(dataRow.Cell(8).Value.ToString());
-                            c.summ_cheque = decimal.Parse(dataRow.Cell(24).Value.ToString());
-                            c.fp = dataRow.Cell(7).Value.ToString();
-                            c.kassa = dataRow.Cell(3).Value.ToString();
-                            c.hash = c.cheque_number.ToString().Trim() + "|" + c.fp.ToString().Trim();
-
-                            CL.Add(c);
+                        /*
+                        c.cheque_date = DateTime.Parse(dataRow.Cell(1).Value.ToString());
+                        c.cheque_number = int.Parse(dataRow.Cell(8).Value.ToString());
+                        c.summ_cheque = decimal.Parse(dataRow.Cell(24).Value.ToString());
+                        c.fp = dataRow.Cell(7).Value.ToString();
+                        c.kassa = dataRow.Cell(3).Value.ToString();
+                        c.hash = c.cheque_number.ToString().Trim() + "|" + c.fp.ToString().Trim();
+                        */
+                        c.cheque_date = DateTime.Parse(dataRow.Cell(cheque_date).Value.ToString());
+                        c.cheque_number = int.Parse(dataRow.Cell(cheque_number).Value.ToString());
+                        c.summ_cheque = decimal.Parse(dataRow.Cell(sum_cheque).Value.ToString());
+                        c.fp = dataRow.Cell(fp).Value.ToString();
+                        c.kassa = dataRow.Cell(kassa).Value.ToString();
+                        c.hash = c.cheque_number.ToString().Trim() + "|" + c.fp.ToString().Trim();
+                        CL.Add(c);
 
                             vtime.CompareDate(c.cheque_date);
                         
